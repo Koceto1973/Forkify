@@ -1,0 +1,26 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "get meal recipes from the web",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "prod": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Koceto1973/Forkify.git"
+  },
+  "author": "TeamK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Koceto1973/Forkify/issues"
+  },
+  "homepage": "https://github.com/Koceto1973/Forkify#readme",
+  "devDependencies": {
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  }
+}
