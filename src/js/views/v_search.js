@@ -1,4 +1,4 @@
-import {elements} from './base';
+import {elements} from './v_shortcuts';
 
 export const getInput = () => {
     return elements.searchInput.value;
