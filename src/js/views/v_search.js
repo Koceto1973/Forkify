@@ -39,9 +39,13 @@ export const clearResults = () => {
 
 // only one row for recipe title
 const limitRecipeTitle = (recipe_title, limit = 17) => {
-    if (recipe_title.length>limit) {
+    
+    if ( recipe_title.length>limit ) {
+
         let recipe_titleInWords = recipe_title.split(' ');
-        if (recipe_titleInWords[0]>limit) {
+
+        if ( recipe_titleInWords[0].length>limit ) {
+
             if (recipe_titleInWords.length === 1) { 
                 return recipe_titleInWords[0]; // title is only one long word
             } else {  

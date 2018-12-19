@@ -7,7 +7,7 @@ export const elements = {
 
 // separated from above, because it does not exist as element at the beginning
 const elementsString = {
-    loader: 'loader'
+    loader: 'loader'  
 }
 
 export const showLoaderIndicator = (parent) => {
@@ -18,10 +18,10 @@ export const showLoaderIndicator = (parent) => {
             </svg>
         </div>
     `;
-    parent.insertAdjacentHTML('afterbegin', elementsString.loader);
+    parent.insertAdjacentHTML('afterbegin', loader);
 }
 
 export const clearLoaderIndicator = () => {
-    const loader = document.querySelector(`${elementsString.loader}`);
+    const loader = document.querySelector(`.${elementsString.loader}`);
     if (loader) { loader.parentElement.removeChild(loader) }
 }
