@@ -2,7 +2,7 @@
 
 import Search from './models/m_search';
 import * as searchView from './views/v_search';
-import {elements} from './views/v_shortcuts';
+import {elements, showLoaderIndicator, clearLoaderIndicator} from './views/v_shortcuts';
 
 // global app state variable
 const app_state = {};
@@ -20,7 +20,7 @@ const controlSearch = async () => {
         // prepare UI for the result
         searchView.clearSearchField();
         searchView.clearResults();
-        // console.log('ok');
+        showLoaderIndicator(elements.searchResult);
 
         // search for resipes
         await app_state.search.getResults();
@@ -28,6 +28,7 @@ const controlSearch = async () => {
 
     // results to UI
     // console.log(app_state.search.result);
+    clearLoaderIndicator();
     searchView.renderRecipes(app_state.search.result);    
 }
 
