@@ -4,10 +4,70 @@ export const getInput = () => {
     return elements.searchInput.value;
 }
 
-export const renderRecipes = (recipes) => {
-    recipes.forEach(element => {
-        renderRecipe(element);
-    });
+export const renderRecipes = (recipes, pageNumber =1, perPage = 10) => {
+    // render results of current page
+    const start = (pageNumber-1)*perPage;
+    const end = start + perPage;
+    recipes.slice(start, end).forEach(renderRecipe);
+
+    // render pagination butttons
+    renderButtons(pageNumber,recipes.length,perPage);
+}
+
+// pagination buttons
+const renderButtons = (pageNumber, resultsNumber, perPage) => {
+	const pagesNumber = Math.ceil(resultsNumber/perPage);
+	
+	if ( pagesNumber !== 1 ) {
+
+        let button;
+		
+        if ( pageNumber === 1 ) {
+            // show next button
+            button = createPageButton(pageNumber,'next');
+		} else if ( pageNumber === pagesNumber ) {
+            // show previous button
+            button = createPageButton(pageNumber,'prev');
+		} else if ( pagesNumber>2 ) { // show both buttons
+            button = `
+                        ${createPageButton(pageNumber,'next')}
+
+                        ${createPageButton(pageNumber,'prev')}
+                     `;
+        }
+
+        elements.searchResultPages.insertAdjacentHTML('afterbegin',button);
+	}
+}
+
+const createPageButton = (pageNumber, buttonType) => {
+	`
+		<button class="btn-inline results__btn--${buttonType}" data-goto=${buttonType === 'prev' ? pageNumber-1: pageNumber+1}>
+				<svg class="search__icon">
+					<use href="img/icons.svg#icon-triangle-${buttonType === 'prev' ? 'left': 'right'}"></use>
+				</svg>
+				<span>Page ${buttonType === 'prev' ? pageNumber-1: pageNumber+1}</span>
+        </button>
+    `	
+		
+			// <button class="btn-inline results__btn--prev">
+			// 	<svg class="search__icon">
+			// 		<use href="img/icons.svg#icon-triangle-left"></use>
+			// 	</svg>
+			// 	<span>Page 1</span>
+            // </button>
+            
+			// <button class="btn-inline results__btn--next">
+			// 	<span>Page 3</span>
+			// 	<svg class="search__icon">
+			// 		<use href="img/icons.svg#icon-triangle-right"></use>
+			// 	</svg>
+			// </button>	
+    
+};
+
+const hidePageButton = () => {
+	// todo
 }
 
 // rendering single recipe is not exported
