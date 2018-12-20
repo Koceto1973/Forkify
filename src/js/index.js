@@ -19,8 +19,8 @@ const controlSearch = async () => {
 
         // prepare UI for the result
         searchView.clearSearchField();
-        searchView.clearResults();
-        elements.searchResultPages.innerHTML = '';
+        searchView.clearResults();     // clear search results
+        elements.searchResultPages.innerHTML = '';  // clear search results pagination
         showLoaderIndicator(elements.searchResult);
 
         // search for resipes
@@ -42,6 +42,7 @@ elements.searchResultPages.addEventListener('click',event => {
     const btn = event.target.closest('.btn-inline');
     if (btn) {
         const goToPage = parseInt(btn.dataset.goto,10);
+        elements.searchResultPages.innerHTML = '';
         searchView.clearResults();
         searchView.renderRecipes(app_state.search.result,goToPage);  
     }

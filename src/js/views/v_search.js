@@ -43,10 +43,10 @@ const renderButtons = (pageNumber, resultsNumber, perPage) => {
 const createPageButton = (pageNumber, buttonType) => {
     return 	`
                 <button class="btn-inline results__btn--${buttonType}" data-goto=${buttonType === 'prev' ? pageNumber-1: pageNumber+1}>
-                        <svg class="search__icon">
-                            <use href="img/icons.svg#icon-triangle-${buttonType === 'prev' ? 'left': 'right'}"></use>
-                        </svg>
-                        <span>Page ${buttonType === 'prev' ? pageNumber-1: pageNumber+1}</span>
+                    <span>Page ${buttonType === 'prev' ? pageNumber-1: pageNumber+1}</span>
+                    <svg class="search__icon">
+                        <use href="img/icons.svg#icon-triangle-${buttonType === 'prev' ? 'left': 'right'}"></use>
+                    </svg>                        
                 </button>
             `
 };
