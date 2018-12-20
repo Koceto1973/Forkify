@@ -1,12 +1,14 @@
 // app controller
 
 import Search from './models/m_search';
+import Recipe from './models/m_recipe';
 import * as searchView from './views/v_search';
 import {elements, showLoaderIndicator, clearLoaderIndicator} from './views/v_shortcuts';
 
 // global app state variable
 const app_state = {};
 
+// search controller
 const controlSearch = async () => {
     // get the query from the view
     const query= searchView.getInput();
@@ -31,7 +33,7 @@ const controlSearch = async () => {
     // console.log(app_state.search.result);
     clearLoaderIndicator();
     searchView.renderRecipes(app_state.search.result);    
-}
+};
 
 elements.searchForm.addEventListener('submit',event => {
     event.preventDefault(); // prevent the event from activation, so we wait search results first
@@ -47,3 +49,12 @@ elements.searchResultPages.addEventListener('click',event => {
         searchView.renderRecipes(app_state.search.result,goToPage);  
     }
 });
+
+// recipe controller
+const controlRecipe = async () => {
+
+};
+
+let r = new Recipe(46956);
+r.getRecipe();
+console.log(r);
