@@ -20,6 +20,7 @@ const controlSearch = async () => {
         // prepare UI for the result
         searchView.clearSearchField();
         searchView.clearResults();
+        elements.searchResultPages.innerHTML = '';
         showLoaderIndicator(elements.searchResult);
 
         // search for resipes
@@ -35,4 +36,13 @@ const controlSearch = async () => {
 elements.searchForm.addEventListener('submit',event => {
     event.preventDefault(); // prevent the event from activation, so we wait search results first
     controlSearch();
+});
+
+elements.searchResultPages.addEventListener('click',event => {
+    const btn = event.target.closest('.btn-inline');
+    if (btn) {
+        const goToPage = parseInt(btn.dataset.goto,10);
+        searchView.clearResults();
+        searchView.renderRecipes(app_state.search.result,goToPage);  
+    }
 });

@@ -24,14 +24,11 @@ const renderButtons = (pageNumber, resultsNumber, perPage) => {
 		
         if ( pageNumber === 1 ) {
             // show next button
-            console.log('showing next');
             button = createPageButton(pageNumber,'next');
 		} else if ( pageNumber === pagesNumber ) {
             // show previous button
-            console.log('swowing previous');
             button = createPageButton(pageNumber,'prev');
         } else if ( pagesNumber>2 ) { // show both buttons
-            console.log('showing both');
             button = `
                         ${createPageButton(pageNumber,'next')}
 
@@ -43,19 +40,16 @@ const renderButtons = (pageNumber, resultsNumber, perPage) => {
 	}
 }
 
-const createPageButton = (pageNumber, buttonType) =>
-	`
-		<button class="btn-inline results__btn--${buttonType}" data-goto=${buttonType === 'prev' ? pageNumber-1: pageNumber+1}>
-				<svg class="search__icon">
-					<use href="img/icons.svg#icon-triangle-${buttonType === 'prev' ? 'left': 'right'}"></use>
-				</svg>
-				<span>Page ${buttonType === 'prev' ? pageNumber-1: pageNumber+1}</span>
-        </button>
-    `;
-
-const hidePageButton = () => {
-	// todo
-}
+const createPageButton = (pageNumber, buttonType) => {
+    return 	`
+                <button class="btn-inline results__btn--${buttonType}" data-goto=${buttonType === 'prev' ? pageNumber-1: pageNumber+1}>
+                        <svg class="search__icon">
+                            <use href="img/icons.svg#icon-triangle-${buttonType === 'prev' ? 'left': 'right'}"></use>
+                        </svg>
+                        <span>Page ${buttonType === 'prev' ? pageNumber-1: pageNumber+1}</span>
+                </button>
+            `
+};
 
 // rendering single recipe is not exported
 const renderRecipe = (recipe) => {
