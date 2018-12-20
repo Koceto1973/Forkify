@@ -16,19 +16,22 @@ export const renderRecipes = (recipes, pageNumber =1, perPage = 10) => {
 
 // pagination buttons
 const renderButtons = (pageNumber, resultsNumber, perPage) => {
-	const pagesNumber = Math.ceil(resultsNumber/perPage);
-	
+    const pagesNumber = Math.ceil(resultsNumber/perPage);
+   	
 	if ( pagesNumber !== 1 ) {
 
         let button;
 		
         if ( pageNumber === 1 ) {
             // show next button
+            console.log('showing next');
             button = createPageButton(pageNumber,'next');
 		} else if ( pageNumber === pagesNumber ) {
             // show previous button
+            console.log('swowing previous');
             button = createPageButton(pageNumber,'prev');
-		} else if ( pagesNumber>2 ) { // show both buttons
+        } else if ( pagesNumber>2 ) { // show both buttons
+            console.log('showing both');
             button = `
                         ${createPageButton(pageNumber,'next')}
 
@@ -40,7 +43,7 @@ const renderButtons = (pageNumber, resultsNumber, perPage) => {
 	}
 }
 
-const createPageButton = (pageNumber, buttonType) => {
+const createPageButton = (pageNumber, buttonType) =>
 	`
 		<button class="btn-inline results__btn--${buttonType}" data-goto=${buttonType === 'prev' ? pageNumber-1: pageNumber+1}>
 				<svg class="search__icon">
@@ -48,23 +51,7 @@ const createPageButton = (pageNumber, buttonType) => {
 				</svg>
 				<span>Page ${buttonType === 'prev' ? pageNumber-1: pageNumber+1}</span>
         </button>
-    `	
-		
-			// <button class="btn-inline results__btn--prev">
-			// 	<svg class="search__icon">
-			// 		<use href="img/icons.svg#icon-triangle-left"></use>
-			// 	</svg>
-			// 	<span>Page 1</span>
-            // </button>
-            
-			// <button class="btn-inline results__btn--next">
-			// 	<span>Page 3</span>
-			// 	<svg class="search__icon">
-			// 		<use href="img/icons.svg#icon-triangle-right"></use>
-			// 	</svg>
-			// </button>	
-    
-};
+    `;
 
 const hidePageButton = () => {
 	// todo
