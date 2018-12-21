@@ -21,7 +21,7 @@ export default class Recipe {
 
     // rough approximation
     cookTime() {
-        ingredientsNumber = this.ingredients.length;
+        const ingredientsNumber = this.ingredients.length;
         const periods15min = Math.ceil(ingredientsNumber/3);
         this.time = periods15min*15;
     }
