@@ -3,6 +3,7 @@
 import Search from './models/m_search';
 import Recipe from './models/m_recipe';
 import * as searchView from './views/v_search';
+import * as recipeView from './views/v_recipe';
 import {elements, showLoaderIndicator, clearLoaderIndicator} from './views/v_shortcuts';
 
 // global app state variable
@@ -65,6 +66,7 @@ const controlRecipe = async () => {
 
     if (id) {
         // prepare ui for changes
+        showLoaderIndicator(elements.recipe);
 
         // create new recipe object
         app_state.recipe = new Recipe(id);
@@ -79,6 +81,8 @@ const controlRecipe = async () => {
 
             // render recipe
             console.log(app_state.recipe);
+            clearLoaderIndicator();
+            recipeView.renderRecipe(app_state.recipe);
 
         } catch(error) {
             alert('Error processing recipe!');

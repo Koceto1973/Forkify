@@ -31,12 +31,13 @@ export default class Recipe {
         this.servings = 4;
     }
 
+    // almost all edge case
     parseIngredients() {
         // from, plurals first
-        const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
+        const unitsLong =  ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
         // to
-        const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
-        const units = [...unitsShort, 'kg', 'g'];
+        const unitsShort = ['tbsp',          'tbsp',      'oz',     'oz',     'tsp',       'tsp',    'cup',  'pound'];
+        const units =      [...unitsShort, 'kg', 'g'];
 
         // build the object by parsing the ingredients
         const newIngredients = this.ingredients.map(el => {
@@ -47,13 +48,15 @@ export default class Recipe {
             });
 
             // Remove parentheses
+            // global search to remove all (text) occurences
             ingredient = ingredient.replace(/ *\([^)]*\) */g, ' ');
 
             // Parse ingredients into count, unit and ingredient
             const arrIng = ingredient.split(' ');
+            // if element is in units, take it's index
             const unitIndex = arrIng.findIndex(el2 => units.includes(el2));
 
-            // proforma result
+            // proforma ingredient
             let objIng;
 
             if (unitIndex > -1) {
@@ -64,7 +67,7 @@ export default class Recipe {
                 
                 let count;
                 if (arrCount.length === 1) {
-                    count = eval(arrIng[0].replace('-', '+'));
+                    count = eval(arrIng[0].replace('-', '+')); // case 1-1/2
                 } else {
                     count = eval(arrIng.slice(0, unitIndex).join('+'));
                 }
@@ -91,7 +94,7 @@ export default class Recipe {
                 }
             }
             
-            // result
+            // ready to return ingredient
             return objIng;
         });
 
