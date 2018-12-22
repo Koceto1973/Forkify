@@ -35,6 +35,7 @@ const controlSearch = async () => {
             searchView.renderRecipes(app_state.search.result);
         } catch(error) {
             alert('Error processing search for recipes!');
+            console.log(error);
         };
         
         clearLoaderIndicator();
@@ -62,11 +63,15 @@ elements.searchResultPages.addEventListener('click',event => {
 const controlRecipe = async () => {
     // get the id from url
     const id = window.location.hash.replace('#','');
-    // console.log(id);
+    console.log('recipe controller:' + id);
 
     if (id) {
         // prepare ui for changes
+        recipeView.clearRecipe();
         showLoaderIndicator(elements.recipe);
+
+        // Highlight selected search item
+        if (state.search) searchView.highlightSelected(id);
 
         // create new recipe object
         app_state.recipe = new Recipe(id);
@@ -74,13 +79,17 @@ const controlRecipe = async () => {
         try {
             // get recipe data
             await app_state.recipe.getRecipe();
-
-            // calc servings and time
+            console.log('resipe from API:');
+            console.log(app_state.recipe);
+            
+            // calc servings and time, parse ingredients
             app_state.recipe.cookTime();
             app_state.recipe.calcServings();
+            state.recipe.parseIngredients();
+            console.log('resipe after parsing ingredients:');
+            console.log(app_state.recipe);
 
             // render recipe
-            console.log(app_state.recipe);
             clearLoaderIndicator();
             recipeView.renderRecipe(app_state.recipe);
 

@@ -95,6 +95,7 @@ export default class Recipe {
             }
             
             // ready to return ingredient
+            // console.log(objIng);
             return objIng;
         });
 

@@ -1,12 +1,16 @@
 import {elements} from './v_shortcuts';
 
+export const clearRecipe = () => {
+    elements.recipe.innerHTML = '';
+};
+
 const createIngredient = (ingredient) => {
     return  `
                 <li class="recipe__item">
                     <svg class="recipe__icon">
                         <use href="img/icons.svg#icon-check"></use>
                     </svg>
-                    <div class="recipe__count">${formatCount(ingredient.count)}</div>
+                    <div class="recipe__count">${ingredient.count}</div>
                     <div class="recipe__ingredient">
                         <span class="recipe__unit">${ingredient.unit}</span>
                         ${ingredient.ingredient}
@@ -18,7 +22,7 @@ const createIngredient = (ingredient) => {
 export const renderRecipe = (recipe, isLiked = 5) => {
     const markup = `
         <figure class="recipe__fig">
-            <img src="${recipe.img}" alt="${recipe.title}" class="recipe__img">
+            <img src="${recipe.image}" alt="${recipe.title}" class="recipe__img">
             <h1 class="recipe__title">
                 <span>${recipe.title}</span>
             </h1>
@@ -62,7 +66,7 @@ export const renderRecipe = (recipe, isLiked = 5) => {
 
         <div class="recipe__ingredients">
             <ul class="recipe__ingredient-list">
-                ${recipe.ingredients.map(el => createIngredient(el)).join('')}
+                ${recipe.ingredients.map(el => createIngredient(el)).join(' ')}
             </ul>
 
             <button class="btn-small recipe__btn recipe__btn--add">
