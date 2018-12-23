@@ -105,8 +105,23 @@ const controlRecipe = async () => {
 // window.addEventListener('load',controlRecipe);
 ['hashchange','load'].forEach(event => window.addEventListener(event,controlRecipe));
 
-
-// // recipe check
-// let r = new Recipe(46956);
-// r.getRecipe();
-// console.log(r);
+// Handling recipe button clicks
+elements.recipe.addEventListener('click', e => {
+    if (e.target.matches('.btn-decrease, .btn-decrease *')) {
+        // Decrease button is clicked
+        if (app_state.recipe.servings > 1) {
+            app_state.recipe.updateServings('dec');
+            recipeView.updateServingsIngredients(app_state.recipe);
+        }
+    } else if (e.target.matches('.btn-increase, .btn-increase *')) {
+        // Increase button is clicked
+        app_state.recipe.updateServings('inc');
+        recipeView.updateServingsIngredients(app_state.recipe);
+    } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+        // Add ingredients to shopping list
+        controlList();
+    } else if (e.target.matches('.recipe__love, .recipe__love *')) {
+        // Like controller
+        controlLike();
+    }
+});
