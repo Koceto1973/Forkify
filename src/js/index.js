@@ -71,7 +71,7 @@ const controlRecipe = async () => {
         showLoaderIndicator(elements.recipe);
 
         // Highlight selected search item
-        if (state.search) searchView.highlightSelected(id);
+        if (app_state.search) searchView.highlightSelected(id);
 
         // create new recipe object
         app_state.recipe = new Recipe(id);
@@ -85,7 +85,7 @@ const controlRecipe = async () => {
             // calc servings and time, parse ingredients
             app_state.recipe.cookTime();
             app_state.recipe.calcServings();
-            state.recipe.parseIngredients();
+            app_state.recipe.parseIngredients();
             console.log('resipe after parsing ingredients:');
             console.log(app_state.recipe);
 
