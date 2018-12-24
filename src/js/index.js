@@ -2,6 +2,7 @@
 
 import Search from './models/m_search';
 import Recipe from './models/m_recipe';
+import List from './models/m_list';
 import * as searchView from './views/v_search';
 import * as recipeView from './views/v_recipe';
 import {elements, showLoaderIndicator, clearLoaderIndicator} from './views/v_shortcuts';
