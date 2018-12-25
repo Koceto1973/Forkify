@@ -4,7 +4,10 @@ export const elements = {
     searchResult: document.querySelector('.results'),
     searchResultList: document.querySelector('.results__list'),
     searchResultPages: document.querySelector('.results__pages'),
-    recipe: document.querySelector('.recipe')
+    recipe: document.querySelector('.recipe'),
+    shopping: document.querySelector('.shopping__list'),
+    likesMenu: document.querySelector('.likes__field'),
+    likesList: document.querySelector('.likes__list')
 }
 
 // separated from above, because it does not exist as element at the beginning
