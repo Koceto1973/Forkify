@@ -1,5 +1,6 @@
 // app controller
 
+// imports
 import Search from './models/m_search';
 import Recipe from './models/m_recipe';
 import List from './models/m_shopping';
@@ -28,6 +29,7 @@ const controlSearch = async () => {
         searchView.clearSearchField();
         searchView.clearResults();     // clear search results
         elements.searchResultPages.innerHTML = '';  // clear search results pagination
+        recipeView.clearRecipe();
         showLoaderIndicator(elements.searchResult);
 
         try {
@@ -39,6 +41,7 @@ const controlSearch = async () => {
             searchView.renderRecipes(app_state.search.result);
         } catch(error) {
             alert('Error processing search for recipes!');
+            console.log('index.js/ search controller: Error processing search for recipes!');
             console.log(error);
         };
         
@@ -49,7 +52,7 @@ const controlSearch = async () => {
 };
 
 elements.searchForm.addEventListener('submit',event => {
-    event.preventDefault(); // prevent the event from activation, so we wait search results first
+    event.preventDefault(); // do not submit the form
     controlSearch();
 });
 
@@ -59,6 +62,7 @@ elements.searchResultPages.addEventListener('click',event => {
         const goToPage = parseInt(btn.dataset.goto,10);
         elements.searchResultPages.innerHTML = '';
         searchView.clearResults();
+        recipeView.clearRecipe();
         searchView.renderRecipes(app_state.search.result,goToPage);  
     }
 });
@@ -67,7 +71,7 @@ elements.searchResultPages.addEventListener('click',event => {
 const controlRecipe = async () => {
     // get the id from url
     const id = window.location.hash.replace('#','');
-    console.log('recipe controller:' + id);
+    // console.log('recipe controller:' + id);
 
     if (id) {
         // prepare ui for changes
@@ -83,15 +87,15 @@ const controlRecipe = async () => {
         try {
             // get recipe data
             await app_state.recipe.getRecipe();
-            console.log('resipe from API:');
-            console.log(app_state.recipe);
+            // console.log('resipe from API:');
+            // console.log(app_state.recipe);
             
             // calc servings and time, parse ingredients
             app_state.recipe.cookTime();
             app_state.recipe.calcServings();
             app_state.recipe.parseIngredients();
-            console.log('resipe after parsing ingredients:');
-            console.log(app_state.recipe);
+            // console.log('resipe after parsing ingredients:');
+            // console.log(app_state.recipe);
 
             // render recipe
             clearLoaderIndicator();
@@ -99,6 +103,7 @@ const controlRecipe = async () => {
 
         } catch(error) {
             alert('Error processing recipe!');
+            console.log('index.js/ recipe controller: Error processing recipe!');
             console.log(error);
         }
         
@@ -144,7 +149,7 @@ elements.shopping.addEventListener('click', e => {
 const controlLike = () => {
     if (!app_state.likes) app_state.likes = new Likes();
     const currentID = app_state.recipe.id;
-
+    
     // User has NOT yet liked current recipe
     if (!app_state.likes.isLiked(currentID)) {
         // Add like to the state
@@ -152,8 +157,10 @@ const controlLike = () => {
             currentID,
             app_state.recipe.title,
             app_state.recipe.author,
-            app_state.recipe.img
+            app_state.recipe.image
         );
+        console.log(newLike);
+
         // Toggle the like button
         likesView.toggleLikeBtn(true);
 
@@ -184,11 +191,11 @@ window.addEventListener('load', () => {
     // Toggle like menu button
     likesView.toggleLikeMenu(app_state.likes.getNumLikes());
 
-    // Render the existing likes
-    app_state.likes.likes.forEach(like => likesView.renderLike(like));
+    // Render the existing likes ( watch out the node list )
+    Array.prototype.forEach.call(app_state.likes, like => likesView.renderLike(like));    // ok for IE
 });
 
-// Handling recipe button clicks
+// Handling recipe buttons clicks
 elements.recipe.addEventListener('click', e => {
     if (e.target.matches('.btn-decrease, .btn-decrease *')) {
         // Decrease button is clicked
@@ -206,8 +213,5 @@ elements.recipe.addEventListener('click', e => {
     } else if (e.target.matches('.recipe__love, .recipe__love *')) {
         // Like controller
         controlLike();
-    } else if (e.target.matches('.recipe__love, .recipe__love *')) {
-        // Like controller
-        controlLike();
-    }
+    } 
 });

@@ -26,6 +26,7 @@ export const showLoaderIndicator = (parent) => {
     parent.insertAdjacentHTML('afterbegin', loader);
 }
 
+// clear if showing
 export const clearLoaderIndicator = () => {
     const loader = document.querySelector(`.${elementsString.loader}`);
     if (loader) { loader.parentElement.removeChild(loader) }

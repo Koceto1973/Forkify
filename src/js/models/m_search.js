@@ -12,8 +12,9 @@ export default class Search{
         try{
             const info = await axios(`${proxy}https://food2fork.com/api/search?key=${key}&q=${this.query}`);
             this.result = info.data.recipes;
-        } catch(err) {
-            alert(err);
+        } catch(error) {
+            console.log('m_search.js/ getResults: Error processing search for recipes!');
+            console.log(error);
         }    
     }
 

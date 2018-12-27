@@ -87,7 +87,7 @@ export const clearResults = () => {
 }
 
 // only one row for recipe title
-const limitRecipeTitle = (recipe_title, limit = 17) => {
+export const limitRecipeTitle = (recipe_title, limit = 17) => {
     
     if ( recipe_title.length>limit ) {
 
